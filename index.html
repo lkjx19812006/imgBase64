@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        .bg {
+            background: rgba(0, 0, 0, .85);
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .bg-blur {
+            float: left;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            -webkit-filter: blur(200px);
+            -moz-filter: blur(200px);
+            -o-filter: blur(200px);
+            -ms-filter: blur(200px);
+            filter: blur(200px);
+        }
+
+        .content {
+            color: #ffffff;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        #input,
+        .btn {
+            height: 60px;
+            width: 300px;
+            margin-top: 50px;
+            outline: none;
+        }
+
+        #input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .btn {
+            line-height: 60px;
+            font-size: 16px;
+            box-shadow: 0 0 12px #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        #result {
+            height: 400px;
+            width: 800px;
+            resize: none;
+            border: 0 none;
+            outline: none;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: transparent;
+            box-shadow: 0px 2px 15px rgba(255, 255, 155, .7);
+            color: #fff;
+            font-size: 16px;
+            line-height: 32px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        #result::-webkit-scrollbar {
+            display: none;
+        }
+
+        .content-front {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .info-wrap {
+            margin: 10px 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+            width: 800px;
+        }
+
+        #name {
+            font-size: 18px;
+            padding: 0 25px;
+        }
+
+        #img {
+            height: 100%;
+            flex: 0 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="bg bg-blur"></div>
+        <div class="content content-front">
+            <div class="input-wrap">
+                <input id="input" type="file">
+                <div class="btn">请选择图片</div>
+            </div>
+            <div class="info-wrap">
+                <h1 id="name"></h1>
+                <img id="img">
+            </div>
+            <div class="result-wrap">
+                <textarea id="result"></textarea>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        var input = document.getElementById('input');
+        var resultName = document.getElementById('name');
+        var result = document.getElementById('result');
+        var img = document.getElementById('img')
+
+        input.addEventListener('change', function (event) {
+            var input = event.target;
+            resultName.innerText = input.files[0].name;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    result.innerText = e.target.result;
+                    img.setAttribute('src', e.target.result)
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
